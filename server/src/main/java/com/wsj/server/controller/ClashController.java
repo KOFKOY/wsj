@@ -19,6 +19,6 @@ public class ClashController {
     @FsNotice
     public String test() throws Exception {
         ClashUtil.updateNode();
-        return "手动更新文件成功";
+        return "手动更新文件成功!!";
     }
 }
