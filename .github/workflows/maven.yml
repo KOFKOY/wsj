@@ -22,4 +22,4 @@ jobs:
           password: ${{ secrets.SSH_PRIVATE_KEY }}
           port: 19000
           script: |
-              sh /home/wsj/publish.sh
+              sh /home/wsj/public.sh
