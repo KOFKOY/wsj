@@ -16,8 +16,8 @@ import java.util.Date;
 @Component
 public class ClashJob {
 
-    @Scheduled(cron = "30 * * * * *")
-//    @Scheduled(cron = "0 1 0/2 * * *")
+//    @Scheduled(cron = "30 * * * * *")
+    @Scheduled(cron = "0 1 0/4 * * *")
     @Async
     @Retryable(value = Exception.class)
     public String test() throws Exception {

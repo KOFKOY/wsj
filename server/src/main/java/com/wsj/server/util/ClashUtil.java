@@ -81,6 +81,7 @@ public class ClashUtil {
                 e.printStackTrace();
                 throw new Exception("生成yaml失败");
             }
+            System.out.println("解析节点成功  sucess !!!");
             return null;
         }
         throw new Exception("解析节点失败");
