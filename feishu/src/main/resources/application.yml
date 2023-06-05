@@ -1,0 +1,10 @@
+#spring:
+#  datasource:
+#    driver-class-name: org.postgresql.Driver
+#    url: jdbc:postgresql://eay-test-db-recovery-cluster.cluster-caa566iydlu9.rds.cn-northwest-1.amazonaws.com.cn:5432/mc
+#    username: postgres
+#    password: eya.psql.123456
+feishu:
+  app-id: cli_a114bdbbf0fd100c
+  app-secret: c8sT2troAtAuTbtQmnKrQdIe7QM8b5BC
+  open-ids: 青山
