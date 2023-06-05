@@ -15,6 +15,9 @@ public class ClashController {
     @Resource
     ClashApi clashApi;
 
+
+    //测试
+
     @GetMapping("/clash")
     @FsNotice
     public String test() throws Exception {
