@@ -3,7 +3,7 @@ name: SSH Connection and Script Execution
 on:
   push:
     branches:
-      - main  # 可根据需要修改触发条件
+      - master  # 可根据需要修改触发条件
 
 jobs:
   deploy:
