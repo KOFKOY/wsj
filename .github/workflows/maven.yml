@@ -8,6 +8,8 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    environment: 
+      name: secrets
 
     steps:
       - name: Checkout Repository
