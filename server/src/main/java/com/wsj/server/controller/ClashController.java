@@ -1,16 +1,13 @@
 package com.wsj.server.controller;
-import com.wsj.notice.fsnotice.entity.FsConfig;
-import com.wsj.notice.fsnotice.entity.WsjTest;
-import com.wsj.notice.fsnotice.message.FsNotice;
+
+import com.wsj.notice.entity.WsjTest;
+import com.wsj.notice.message.FsNotice;
 import com.wsj.server.api.ClashApi;
 import com.wsj.server.util.ClashUtil;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import javax.annotation.Resource;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 @RestController
 @RequestMapping("/api")
@@ -19,9 +16,9 @@ public class ClashController {
     ClashApi clashApi;
 
     @GetMapping("/clash")
-//    @FsNotice
-    public String test(){
+    @FsNotice
+    public String test() throws Exception {
         ClashUtil.updateNode();
-        return "ok";
+        return "手动更新文件成功";
     }
 }

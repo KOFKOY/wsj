@@ -1,4 +1,4 @@
-package com.wsj.notice.fsnotice.message;
+package com.wsj.notice.message;
 
 import cn.hutool.json.JSONUtil;
 import com.lark.oapi.Client;
@@ -10,8 +10,8 @@ import com.lark.oapi.service.im.v1.ImService;
 import com.lark.oapi.service.im.v1.model.CreateMessageReq;
 import com.lark.oapi.service.im.v1.model.CreateMessageReqBody;
 import com.lark.oapi.service.im.v1.model.CreateMessageResp;
-import com.wsj.notice.fsnotice.entity.FsConfig;
-import com.wsj.notice.fsnotice.entity.PatchMessageBody;
+import com.wsj.notice.entity.FsConfig;
+import com.wsj.notice.entity.PatchMessageBody;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.stereotype.Component;

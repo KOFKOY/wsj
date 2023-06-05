@@ -1,4 +1,4 @@
-package com.wsj.notice.fsnotice.aspect;
+package com.wsj.notice.aspect;
 
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
@@ -7,9 +7,9 @@ import com.lark.oapi.service.contact.v3.ContactService;
 import com.lark.oapi.service.contact.v3.model.FindByDepartmentUserReq;
 import com.lark.oapi.service.contact.v3.model.FindByDepartmentUserResp;
 import com.lark.oapi.service.contact.v3.model.User;
-import com.wsj.notice.fsnotice.entity.FsConfig;
-import com.wsj.notice.fsnotice.message.FsNotice;
-import com.wsj.notice.fsnotice.message.MessageSend;
+import com.wsj.notice.entity.FsConfig;
+import com.wsj.notice.message.FsNotice;
+import com.wsj.notice.message.MessageSend;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
@@ -36,7 +36,7 @@ public class MessageAspect {
     @Resource
     Config config;
 
-    @Pointcut(value = "@annotation(com.wsj.notice.fsnotice.message.FsNotice)")
+    @Pointcut(value = "@annotation(com.wsj.notice.message.FsNotice)")
     public void fmsg(){
     }
 

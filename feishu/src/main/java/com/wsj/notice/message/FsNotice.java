@@ -1,4 +1,4 @@
-package com.wsj.notice.fsnotice.message;
+package com.wsj.notice.message;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

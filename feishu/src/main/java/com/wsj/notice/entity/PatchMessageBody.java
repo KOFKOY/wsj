@@ -1,4 +1,4 @@
-package com.wsj.notice.fsnotice.entity;
+package com.wsj.notice.entity;
 
 import java.util.List;
 

@@ -1,5 +1,5 @@
-package com.wsj.notice.fsnotice.entity;
-import com.wsj.notice.fsnotice.aspect.MessageAspect;
+package com.wsj.notice.entity;
+import com.wsj.notice.aspect.MessageAspect;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;

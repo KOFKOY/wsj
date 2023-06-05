@@ -1,8 +1,8 @@
-package com.wsj.notice.fsnotice.config;
+package com.wsj.notice.config;
 
 import com.lark.oapi.core.Config;
-import com.wsj.notice.fsnotice.entity.FsConfig;
-import com.wsj.notice.fsnotice.message.MessageSend;
+import com.wsj.notice.entity.FsConfig;
+import com.wsj.notice.message.MessageSend;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;

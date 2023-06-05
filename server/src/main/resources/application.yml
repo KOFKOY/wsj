@@ -5,14 +5,16 @@
 #    username: postgres
 #    password: eya.psql.123456
 
-#feishu:
-#  app-id: cli_a114bdbbf0fd100c
-#  app-secret: c8sT2troAtAuTbtQmnKrQdIe7QM8b5BC
-#  open-ids: ??
+feishu:
+  app-id: cli_a114bdbbf0fd100c
+  app-secret: c8sT2troAtAuTbtQmnKrQdIe7QM8b5BC
+  open-ids: 青山
+
 forest:
   max-connections: 1000
   connect-timeout: 3000
   read-timeout: 3000
-  log-response-content: true
+  log-response-content: false
 server:
   port: 19011
+  address: 0.0.0.0

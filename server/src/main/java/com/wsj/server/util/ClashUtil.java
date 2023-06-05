@@ -21,13 +21,13 @@ import java.util.stream.Collectors;
 
 public class ClashUtil {
 
-    public static void updateNode(){
+    public static String updateNode() throws Exception {
         ClashApi clash = SpringUtil.getBean(ClashApi.class);
         String test = clash.nodeList();
         Pattern pattern = Pattern.compile("(?<=href=\")https://\\S+\\.html");
         Matcher matcher = pattern.matcher(test);
         if (!matcher.find(0)) {
-            return;
+            throw new Exception("正则匹配最新节点html地址失败");
         }
         //获取最新的节点地址
         String nodeUrl = matcher.group();
@@ -35,7 +35,7 @@ public class ClashUtil {
         Pattern compile = Pattern.compile("https://\\S+\\.yaml");
         Matcher matcher1 = compile.matcher(node);
         if (!matcher1.find(0)) {
-           return;
+            throw new Exception("正则匹配yaml地址失败");
         }
         String resultUrl = matcher1.group();
         String test2 = "https://clashnode.com/wp-content/uploads/2023/06/20230604.yaml";
@@ -56,7 +56,7 @@ public class ClashUtil {
                     iterator.remove();
                 }
             }
-            if(hashMap.containsKey("proxy-groups")){
+            if(hashMap.containsKey("proxy-groups") && nameList.size()>0){
                 List arr = (List)hashMap.get("proxy-groups");
                 for (Object o : arr) {
                     Map obj = (Map)o;
@@ -70,7 +70,6 @@ public class ClashUtil {
                     }
                 }
             }
-
             DumperOptions dumperOptions = new DumperOptions();
             dumperOptions.setDefaultFlowStyle(DumperOptions.FlowStyle.BLOCK);
             Yaml wyaml = new Yaml(dumperOptions);
@@ -80,9 +79,11 @@ public class ClashUtil {
                 wyaml.dump(hashMap, writer);
             } catch (IOException e) {
                 e.printStackTrace();
+                throw new Exception("生成yaml失败");
             }
-
+            return null;
         }
+        throw new Exception("解析节点失败");
     }
 
 
