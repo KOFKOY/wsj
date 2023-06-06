@@ -18,7 +18,7 @@ public class DeployController {
     @GetMapping
     public String deploy() throws Exception {
         // 切换到目标目录
-        ProcessBuilder cdProcessBuilder = new ProcessBuilder("sh", "-c", "cd /home/wsj");
+        ProcessBuilder cdProcessBuilder = new ProcessBuilder("sh", "-c", "cd /home/wsj/wsj");
         cdProcessBuilder.redirectErrorStream(true);
         Process cdProcess = cdProcessBuilder.start();
         cdProcess.waitFor();
