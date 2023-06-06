@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.InputStreamReader;
 
 @RestController
@@ -31,6 +32,7 @@ public class DeployController {
 
         // 执行public.sh
         ProcessBuilder shProcessBuilder = new ProcessBuilder("sh", "public.sh");
+        shProcessBuilder.directory(new File("/home/wsj/wsj"));
         shProcessBuilder.redirectErrorStream(true);
         Process shProcess = shProcessBuilder.start();
         shProcess.waitFor();
