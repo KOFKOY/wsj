@@ -8,6 +8,7 @@ import com.wsj.server.api.ClashApi;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.system.ApplicationHome;
+import org.springframework.util.ClassUtils;
 import org.yaml.snakeyaml.DumperOptions;
 import org.yaml.snakeyaml.Yaml;
 
@@ -158,7 +159,11 @@ public class ClashUtil {
         ApplicationHome applicationHome = new ApplicationHome(ClashUtil.class);
 
         // 保存目录位置根据项目需求可随意更改
-        return applicationHome.getDir().getParentFile()
+        String url = applicationHome.getDir().getParentFile()
                 .getParentFile().getAbsolutePath() + "\\src\\main\\resources\\static\\";
+        String s = ClassUtils.getDefaultClassLoader().getResource("").getPath() + "static\\";
+        System.out.println(url);
+        System.out.println(s);
+        return s;
     }
 }
