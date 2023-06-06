@@ -10,10 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     environment: 
       name: secrets
-
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v2
       - name: SSH REMOTE
         uses: appleboy/ssh-action@master
         with:
