@@ -19,5 +19,6 @@ jobs:
           password: ${{ secrets.SSH_PRIVATE_KEY }}
           port: 19000
           script: |
-              cd /home/wsj
+              cd /home/wsj/wsj
+              git pull
               sh public.sh
