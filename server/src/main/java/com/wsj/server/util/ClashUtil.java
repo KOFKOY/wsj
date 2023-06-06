@@ -44,32 +44,7 @@ public class ClashUtil {
         Yaml yaml = new Yaml();
         Map hashMap = yaml.loadAs(content, Map.class);
         if (hashMap.containsKey("proxies")) {
-            List array =(List) hashMap.get("proxies");
-            List<String> nameList = new ArrayList<>();
-            Iterator<Object> iterator = array.iterator();
-            while (iterator.hasNext()) {
-                Object obj = iterator.next();
-                Map map = (Map) obj;
-                String type = (String) map.getOrDefault("type",null);
-                if ("vless".equals(type)) {
-                    nameList.add((String) map.get("name"));
-                    iterator.remove();
-                }
-            }
-            if(hashMap.containsKey("proxy-groups") && nameList.size()>0){
-                List arr = (List)hashMap.get("proxy-groups");
-                for (Object o : arr) {
-                    Map obj = (Map)o;
-                    List proxies = (List)obj.get("proxies");
-                    Iterator<Object> iterator1 = proxies.iterator();
-                    while (iterator1.hasNext()) {
-                        String next = (String)iterator1.next();
-                        if (nameList.contains(next)) {
-                            iterator1.remove();
-                        }
-                    }
-                }
-            }
+            filter(hashMap);
             DumperOptions dumperOptions = new DumperOptions();
             dumperOptions.setDefaultFlowStyle(DumperOptions.FlowStyle.BLOCK);
             Yaml wyaml = new Yaml(dumperOptions);
@@ -109,32 +84,7 @@ public class ClashUtil {
         Yaml yaml = new Yaml();
         Map hashMap = yaml.loadAs(content, Map.class);
         if (hashMap.containsKey("proxies")) {
-            List array =(List) hashMap.get("proxies");
-            List<String> nameList = new ArrayList<>();
-            Iterator<Object> iterator = array.iterator();
-            while (iterator.hasNext()) {
-                Object obj = iterator.next();
-                Map map = (Map) obj;
-                String type = (String) map.getOrDefault("type",null);
-                if ("vless".equals(type)) {
-                    nameList.add((String) map.get("name"));
-                    iterator.remove();
-                }
-            }
-            if(hashMap.containsKey("proxy-groups") && nameList.size()>0){
-                List arr = (List)hashMap.get("proxy-groups");
-                for (Object o : arr) {
-                    Map obj = (Map)o;
-                    List proxies = (List)obj.get("proxies");
-                    Iterator<Object> iterator1 = proxies.iterator();
-                    while (iterator1.hasNext()) {
-                        String next = (String)iterator1.next();
-                        if (nameList.contains(next)) {
-                            iterator1.remove();
-                        }
-                    }
-                }
-            }
+            filter(hashMap);
             DumperOptions dumperOptions = new DumperOptions();
             dumperOptions.setDefaultFlowStyle(DumperOptions.FlowStyle.BLOCK);
             Yaml wyaml = new Yaml(dumperOptions);
@@ -150,6 +100,35 @@ public class ClashUtil {
             return null;
         }
         throw new Exception("解析节点失败");
+    }
+
+    private static void filter(Map hashMap) {
+        List array =(List) hashMap.get("proxies");
+        List<String> nameList = new ArrayList<>();
+        Iterator<Object> iterator = array.iterator();
+        while (iterator.hasNext()) {
+            Object obj = iterator.next();
+            Map map = (Map) obj;
+            String type = (String) map.getOrDefault("type",null);
+            if ("vless".equals(type) || map.containsKey("plugin")) {
+                nameList.add((String) map.get("name"));
+                iterator.remove();
+            }
+        }
+        if(hashMap.containsKey("proxy-groups") && nameList.size()>0){
+            List arr = (List) hashMap.get("proxy-groups");
+            for (Object o : arr) {
+                Map obj = (Map)o;
+                List proxies = (List)obj.get("proxies");
+                Iterator<Object> iterator1 = proxies.iterator();
+                while (iterator1.hasNext()) {
+                    String next = (String)iterator1.next();
+                    if (nameList.contains(next)) {
+                        iterator1.remove();
+                    }
+                }
+            }
+        }
     }
 
 
