@@ -23,20 +23,21 @@ import java.util.stream.Collectors;
 public class ClashUtil {
 
     public static String updateClashBode() throws Exception {
+        String url = "https://clashnode.com";
         ClashApi clash = SpringUtil.getBean(ClashApi.class);
         String test = clash.getRequest("https://clashnode.com");
         Pattern pattern = Pattern.compile("(?<=href=\")https://\\S+\\.html");
         Matcher matcher = pattern.matcher(test);
         if (!matcher.find(0)) {
-            throw new Exception("正则匹配最新节点html地址失败");
+            return url + "正则匹配最新节点html地址失败" ;
         }
         //获取最新的节点地址
         String nodeUrl = matcher.group();
         String node = clash.getRequest(nodeUrl);
-        Pattern compile = Pattern.compile("https://\\S+\\.yaml");
+        Pattern compile = Pattern.compile("https://\\S+\\.ya?ml");
         Matcher matcher1 = compile.matcher(node);
         if (!matcher1.find(0)) {
-            throw new Exception("正则匹配yaml地址失败");
+            return url + "正则匹配yaml地址失败" ;
         }
         String resultUrl = matcher1.group();
         String content = clash.getRequest(resultUrl);
@@ -54,29 +55,72 @@ public class ClashUtil {
                 wyaml.dump(hashMap, writer);
             } catch (IOException e) {
                 e.printStackTrace();
-                throw new Exception("生成yaml失败");
+                return url +  "生成yaml失败" ;
             }
             System.out.println("解析节点成功  sucess !!!");
             return null;
         }
-        throw new Exception("解析节点失败");
+        return url + "解析节点失败" ;
     }
 
-    public static String updateNodeFree() throws Exception {
+    public static String updateClashFree() throws Exception {
+        String url = "https://clashfree.eu.org/";
         ClashApi clash = SpringUtil.getBean(ClashApi.class);
-        String test = clash.getRequest("https://nodefree.org/t/clash");
+        String test = clash.getRequest(url);
         Pattern pattern = Pattern.compile("(?<=href=\")https://\\S+\\.html");
         Matcher matcher = pattern.matcher(test);
         if (!matcher.find(0)) {
-            throw new Exception("正则匹配最新节点html地址失败");
+            return url + "正则匹配最新节点html地址失败";
         }
         //获取最新的节点地址
         String nodeUrl = matcher.group();
         String node = clash.getRequest(nodeUrl);
-        Pattern compile = Pattern.compile("https://\\S+\\.yaml");
+        Pattern compile = Pattern.compile("https://\\S+\\.ya?ml");
         Matcher matcher1 = compile.matcher(node);
         if (!matcher1.find(0)) {
-            throw new Exception("正则匹配yaml地址失败");
+            return url + "正则匹配yaml地址失败";
+        }
+        String resultUrl = matcher1.group();
+        String content = clash.getRequest(resultUrl);
+        //可能需要调整
+        Yaml yaml = new Yaml();
+        Map hashMap = yaml.loadAs(content, Map.class);
+        if (hashMap.containsKey("proxies")) {
+            filter(hashMap);
+            DumperOptions dumperOptions = new DumperOptions();
+            dumperOptions.setDefaultFlowStyle(DumperOptions.FlowStyle.BLOCK);
+            Yaml wyaml = new Yaml(dumperOptions);
+            String savePath = getSavePath();
+            File dumpfile = new File(savePath + "clash3.yaml"); //保存yaml
+            try(FileWriter writer = new FileWriter(dumpfile)) {
+                wyaml.dump(hashMap, writer);
+            } catch (IOException e) {
+                e.printStackTrace();
+                return url + "生成yaml失败";
+            }
+            System.out.println("解析节点成功  sucess !!!");
+            return null;
+        }
+        return url + "解析节点失败";
+    }
+
+
+    public static String updateNodeFree() throws Exception {
+        String url = "https://nodefree.org/t/clash";
+        ClashApi clash = SpringUtil.getBean(ClashApi.class);
+        String test = clash.getRequest(url);
+        Pattern pattern = Pattern.compile("(?<=href=\")https://\\S+\\.html");
+        Matcher matcher = pattern.matcher(test);
+        if (!matcher.find(0)) {
+            return url + "正则匹配最新节点html地址失败" ;
+        }
+        //获取最新的节点地址
+        String nodeUrl = matcher.group();
+        String node = clash.getRequest(nodeUrl);
+        Pattern compile = Pattern.compile("https://\\S+\\.ya?ml");
+        Matcher matcher1 = compile.matcher(node);
+        if (!matcher1.find(0)) {
+            return url + "正则匹配yaml地址失败" ;
         }
         String resultUrl = matcher1.group();
         String content = clash.getRequest(resultUrl);
@@ -94,12 +138,12 @@ public class ClashUtil {
                 wyaml.dump(hashMap, writer);
             } catch (IOException e) {
                 e.printStackTrace();
-                throw new Exception("生成yaml失败");
+                return url + "生成yaml失败" ;
             }
             System.out.println("解析节点成功  sucess !!!");
             return null;
         }
-        throw new Exception("解析节点失败");
+        return url + "解析节点失败" ;
     }
 
     private static void filter(Map hashMap) {
@@ -133,14 +177,6 @@ public class ClashUtil {
 
 
     public static String getSavePath() throws IOException {
-        // 这里需要注意的是ApplicationHome是属于SpringBoot的类
-        // 获取项目下resources/static/img路径
-        ApplicationHome applicationHome = new ApplicationHome(ClashUtil.class);
-
-//        // 保存目录位置根据项目需求可随意更改
-//        String url = applicationHome.getDir().getParentFile()
-//                .getParentFile().getAbsolutePath() + "\\src\\main\\resources\\static\\";
-//        String s = ClassUtils.getDefaultClassLoader().getResource("").getPath() + "static\\";
         ApplicationHome h = new ApplicationHome(ClashUtil.class);
         File jarF = h.getSource();
         String staticPath = jarF.getParentFile().toString()+File.separator+"files"+File.separator;
@@ -148,7 +184,6 @@ public class ClashUtil {
         if (!newFile.exists()) {
             newFile.mkdir();
         }
-        System.out.println(staticPath);
         return staticPath;
     }
 }

@@ -23,6 +23,7 @@ public class ClashController {
     public String test() throws Exception {
         ClashUtil.updateClashBode();
         ClashUtil.updateNodeFree();
-        return "更新订阅文件成功~~~";
+        ClashUtil.updateClashFree();
+        return "更新3个订阅文件成功~~~";
     }
 }
