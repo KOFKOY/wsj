@@ -164,7 +164,7 @@ public class ClashUtil {
 //        String s = ClassUtils.getDefaultClassLoader().getResource("").getPath() + "static\\";
         ApplicationHome h = new ApplicationHome(ClashUtil.class);
         File jarF = h.getSource();
-        String staticPath = jarF.getParentFile().toString()+"\\files\\";
+        String staticPath = jarF.getParentFile().toString()+File.separator+"files"+File.separator;
         File newFile = new File(staticPath);
         if (!newFile.exists()) {
             newFile.mkdir();
