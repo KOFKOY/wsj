@@ -4,6 +4,7 @@ import com.wsj.notice.message.FsNotice;
 import com.wsj.server.api.ClashApi;
 import com.wsj.server.util.ClashUtil;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -16,7 +17,7 @@ import java.io.InputStreamReader;
 @RequestMapping("/deploy")
 public class DeployController {
 
-    @GetMapping
+    @PostMapping
     public String deploy() throws Exception {
         // 切换到目标目录
         ProcessBuilder cdProcessBuilder = new ProcessBuilder("sh", "-c", "cd /home/wsj/wsj");
