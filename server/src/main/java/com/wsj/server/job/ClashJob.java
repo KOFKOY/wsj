@@ -16,12 +16,13 @@ import java.util.Date;
 @Component
 public class ClashJob {
 
-//    @Scheduled(cron = "30 * * * * *")
-    @Scheduled(cron = "0 1 0/4 * * *")
+    @Scheduled(cron = "30 * * * * *")
+//    @Scheduled(cron = "0 1 0/4 * * *")
     @Async
     @Retryable(value = Exception.class)
     public String test() throws Exception {
-        return ClashUtil.updateNode();
+        ClashUtil.updateNodeFree();
+        return ClashUtil.updateClashBode();
     }
 
     @Recover

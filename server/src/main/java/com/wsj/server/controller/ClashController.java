@@ -21,7 +21,8 @@ public class ClashController {
     @GetMapping("/clash")
     @FsNotice
     public String test() throws Exception {
-        ClashUtil.updateNode();
+        ClashUtil.updateClashBode();
+        ClashUtil.updateNodeFree();
         return "更新订阅文件成功~~~";
     }
 }
