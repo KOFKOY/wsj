@@ -153,17 +153,23 @@ public class ClashUtil {
     }
 
 
-    public static String getSavePath() {
+    public static String getSavePath() throws IOException {
         // 这里需要注意的是ApplicationHome是属于SpringBoot的类
         // 获取项目下resources/static/img路径
         ApplicationHome applicationHome = new ApplicationHome(ClashUtil.class);
 
-        // 保存目录位置根据项目需求可随意更改
-        String url = applicationHome.getDir().getParentFile()
-                .getParentFile().getAbsolutePath() + "\\src\\main\\resources\\static\\";
-        String s = ClassUtils.getDefaultClassLoader().getResource("").getPath() + "static\\";
-        System.out.println(url);
-        System.out.println(s);
-        return s;
+//        // 保存目录位置根据项目需求可随意更改
+//        String url = applicationHome.getDir().getParentFile()
+//                .getParentFile().getAbsolutePath() + "\\src\\main\\resources\\static\\";
+//        String s = ClassUtils.getDefaultClassLoader().getResource("").getPath() + "static\\";
+        ApplicationHome h = new ApplicationHome(ClashUtil.class);
+        File jarF = h.getSource();
+        String staticPath = jarF.getParentFile().toString()+"\\files\\";
+        File newFile = new File(staticPath);
+        if (!newFile.exists()) {
+            newFile.mkdir();
+        }
+        System.out.println(staticPath);
+        return staticPath;
     }
 }
