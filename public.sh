@@ -11,5 +11,5 @@ done
 echo "关闭进程"
 cd server
 cd target
-nohup java -jar server-1.0.jar &
+nohup java -jar server-1.0.jar > /dev/null 2>&1 &
 echo "发布成功"
