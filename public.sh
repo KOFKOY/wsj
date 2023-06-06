@@ -1,3 +1,4 @@
+#!/bin/bash
 mvn clean & mvn compile & mvn package -Dmaven.test.skip=true
 echo "打包成功"
 # 获取与 java -jar 相关的进程ID列表
