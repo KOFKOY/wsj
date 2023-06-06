@@ -27,7 +27,7 @@ public class FileController {
     public ResponseEntity<Resource> downloadFile(@PathVariable String filename) throws MalformedURLException {
         ApplicationHome h = new ApplicationHome(ClashUtil.class);
         File jarF = h.getSource();
-        String staticPath = jarF.getParentFile().toString()+"\\files\\";
+        String staticPath = jarF.getParentFile().toString()+File.separator+"files"+File.separator;
 
         Path file = Paths.get(staticPath).resolve(filename);
 
