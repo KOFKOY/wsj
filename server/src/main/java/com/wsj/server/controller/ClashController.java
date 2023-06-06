@@ -16,7 +16,7 @@ public class ClashController {
     ClashApi clashApi;
 
 
-    //测试1
+    //测试2
 
     @GetMapping("/clash")
     @FsNotice
