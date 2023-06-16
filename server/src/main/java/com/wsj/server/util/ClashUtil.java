@@ -170,6 +170,10 @@ public class ClashUtil {
                     String next = (String)iterator1.next();
                     if (nameList.contains(next)) {
                         iterator1.remove();
+                        continue;
+                    }
+                    if (i == 0 && autoSelect && next.equals("DIRECT")) {
+                        iterator1.remove();
                     }
                 }
             }
