@@ -155,7 +155,7 @@ public class ClashUtil {
                 iterator.remove();
             }
         }
-        if(hashMap.containsKey("proxy-groups") && nameList.size()>0){
+        if(hashMap.containsKey("proxy-groups")){
             List arr = (List) hashMap.get("proxy-groups");
             for (int i = 0; i < arr.size(); i++) {
                 Map obj = (Map)arr.get(i);
