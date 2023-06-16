@@ -1,24 +1,20 @@
 package com.wsj.server.util;
 
 import cn.hutool.extra.spring.SpringUtil;
-import cn.hutool.json.JSON;
-import cn.hutool.json.JSONArray;
-import cn.hutool.json.JSONObject;
 import com.wsj.server.api.ClashApi;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.system.ApplicationHome;
-import org.springframework.util.ClassUtils;
 import org.yaml.snakeyaml.DumperOptions;
 import org.yaml.snakeyaml.Yaml;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 
 public class ClashUtil {
 
@@ -45,7 +41,7 @@ public class ClashUtil {
         Yaml yaml = new Yaml();
         Map hashMap = yaml.loadAs(content, Map.class);
         if (hashMap.containsKey("proxies")) {
-            filter(hashMap);
+            filter(hashMap,true);
             DumperOptions dumperOptions = new DumperOptions();
             dumperOptions.setDefaultFlowStyle(DumperOptions.FlowStyle.BLOCK);
             Yaml wyaml = new Yaml(dumperOptions);
@@ -86,7 +82,7 @@ public class ClashUtil {
         Yaml yaml = new Yaml();
         Map hashMap = yaml.loadAs(content, Map.class);
         if (hashMap.containsKey("proxies")) {
-            filter(hashMap);
+            filter(hashMap,false);
             DumperOptions dumperOptions = new DumperOptions();
             dumperOptions.setDefaultFlowStyle(DumperOptions.FlowStyle.BLOCK);
             Yaml wyaml = new Yaml(dumperOptions);
@@ -128,7 +124,7 @@ public class ClashUtil {
         Yaml yaml = new Yaml();
         Map hashMap = yaml.loadAs(content, Map.class);
         if (hashMap.containsKey("proxies")) {
-            filter(hashMap);
+            filter(hashMap,true);
             DumperOptions dumperOptions = new DumperOptions();
             dumperOptions.setDefaultFlowStyle(DumperOptions.FlowStyle.BLOCK);
             Yaml wyaml = new Yaml(dumperOptions);
@@ -146,7 +142,7 @@ public class ClashUtil {
         return url + "解析节点失败" ;
     }
 
-    private static void filter(Map hashMap) {
+    private static void filter(Map hashMap,boolean autoSelect) {
         List array =(List) hashMap.get("proxies");
         List<String> nameList = new ArrayList<>();
         Iterator<Object> iterator = array.iterator();
@@ -161,8 +157,13 @@ public class ClashUtil {
         }
         if(hashMap.containsKey("proxy-groups") && nameList.size()>0){
             List arr = (List) hashMap.get("proxy-groups");
-            for (Object o : arr) {
-                Map obj = (Map)o;
+            for (int i = 0; i < arr.size(); i++) {
+                Map obj = (Map)arr.get(i);
+                if (i == 0 && autoSelect && obj.containsKey("type")) {
+                    obj.put("type", "url-test");
+                    obj.put("url", "http://www.gstatic.com/generate_204");
+                    obj.put("interval",300);
+                }
                 List proxies = (List)obj.get("proxies");
                 Iterator<Object> iterator1 = proxies.iterator();
                 while (iterator1.hasNext()) {
