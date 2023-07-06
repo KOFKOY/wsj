@@ -1,5 +1,7 @@
 package com.wsj;
 
+import org.apache.ibatis.annotations.Mapper;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
@@ -11,6 +13,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @EnableScheduling
 @EnableRetry
 @ComponentScan
+@MapperScan(value = "com.wsj.server.mapper")
 public class ServerApplication {
 
     public static void main(String[] args) {

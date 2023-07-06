@@ -1,0 +1,8 @@
+GET http://localhost:19011/xxqg
+Accept: application/json
+
+###
+GET http://localhost:19011/xxqg/search/{{question}}
+Accept: application/json
+
+###

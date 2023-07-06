@@ -1,7 +1,7 @@
 package com.wsj.server.util;
 
 import cn.hutool.extra.spring.SpringUtil;
-import com.wsj.server.api.ClashApi;
+import com.wsj.server.api.BaseApi;
 import org.springframework.boot.system.ApplicationHome;
 import org.yaml.snakeyaml.DumperOptions;
 import org.yaml.snakeyaml.Yaml;
@@ -20,7 +20,7 @@ public class ClashUtil {
 
     public static String updateClashBode() throws Exception {
         String url = "https://clashnode.com";
-        ClashApi clash = SpringUtil.getBean(ClashApi.class);
+        BaseApi clash = SpringUtil.getBean(BaseApi.class);
         String test = clash.getRequest("https://clashnode.com");
         Pattern pattern = Pattern.compile("(?<=href=\")https://\\S+\\.html");
         Matcher matcher = pattern.matcher(test);
@@ -61,7 +61,7 @@ public class ClashUtil {
 
     public static String updateClashFree() throws Exception {
         String url = "https://clashfree.eu.org/";
-        ClashApi clash = SpringUtil.getBean(ClashApi.class);
+        BaseApi clash = SpringUtil.getBean(BaseApi.class);
         String test = clash.getRequest(url);
         Pattern pattern = Pattern.compile("(?<=href=\")https://\\S+\\.html");
         Matcher matcher = pattern.matcher(test);
@@ -103,7 +103,7 @@ public class ClashUtil {
 
     public static String updateNodeFree() throws Exception {
         String url = "https://nodefree.org/t/clash";
-        ClashApi clash = SpringUtil.getBean(ClashApi.class);
+        BaseApi clash = SpringUtil.getBean(BaseApi.class);
         String test = clash.getRequest(url);
         Pattern pattern = Pattern.compile("(?<=href=\")https://\\S+\\.html");
         Matcher matcher = pattern.matcher(test);

@@ -1,8 +1,7 @@
 package com.wsj.server.controller;
 
-import com.wsj.notice.entity.WsjTest;
 import com.wsj.notice.message.FsNotice;
-import com.wsj.server.api.ClashApi;
+import com.wsj.server.api.BaseApi;
 import com.wsj.server.util.ClashUtil;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,7 +12,7 @@ import javax.annotation.Resource;
 @RequestMapping("/api")
 public class ClashController {
     @Resource
-    ClashApi clashApi;
+    BaseApi clashApi;
 
 
     //测试2
