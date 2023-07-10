@@ -1,33 +1,23 @@
 package com.wsj.server.config;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.wsj.server.util.NoticeUtil;
-import org.aspectj.weaver.ast.Not;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.retry.annotation.Recover;
-import org.springframework.stereotype.Component;
-import org.springframework.web.socket.CloseStatus;
-import org.springframework.web.socket.TextMessage;
-import org.springframework.web.socket.WebSocketHandler;
-import org.springframework.web.socket.WebSocketMessage;
-import org.springframework.web.socket.WebSocketSession;
-
+import org.springframework.web.socket.*;
 import javax.annotation.Resource;
+import javax.swing.table.TableRowSorter;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class SocketHandler implements WebSocketHandler {
 
-    private List<WebSocketSession> sessions = new ArrayList<>();
+    private Map<String, WebSocketSession> sessionMap = new HashMap<>();
 
     @Resource
     NoticeUtil noticeUtil;
 
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
-        sessions.add(session);
-        System.out.println(session.getId());
-        System.out.println(session.toString());
+        sessionMap.put(session.getId(), session);
         noticeUtil.send("有新客户端连接进来，ID:" + session.getId());
     }
 
@@ -36,8 +26,7 @@ public class SocketHandler implements WebSocketHandler {
         // 处理收到的消息
         String receivedMessage = (String) message.getPayload();
         // 在此处添加自定义的消息处理逻辑
-        System.out.println(receivedMessage);
-        noticeUtil.send("收到的消息" + receivedMessage);
+        noticeUtil.send("收到的消息：" + receivedMessage);
     }
 
     @Override
@@ -47,7 +36,8 @@ public class SocketHandler implements WebSocketHandler {
 
     @Override
     public void afterConnectionClosed(WebSocketSession session, CloseStatus closeStatus) throws Exception {
-        sessions.remove(session);
+        sessionMap.remove(session.getId());
+        noticeUtil.send("客户端断开连接：" + session.getId());
     }
 
     @Override
@@ -55,14 +45,25 @@ public class SocketHandler implements WebSocketHandler {
         return false;
     }
 
-    public void sendMessageToAllClients(String message) throws Exception {
-        for (WebSocketSession session : sessions) {
-            session.sendMessage(new TextMessage(message));
-        }
+    public void sendMessageToAllClients(String message){
+        sessionMap.values().forEach(f->{
+            try {
+                f.sendMessage(new TextMessage(message));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+    }
+    public Map<String, WebSocketSession> getClientSessions() {
+        return sessionMap;
     }
 
-    public List<WebSocketSession> getClientSessions() {
-        return sessions;
+    public boolean sendMessage(String message, String id) throws IOException {
+        if (sessionMap.containsKey(id)) {
+            sessionMap.get(id).sendMessage(new TextMessage(message));
+            return true;
+        }
+        return false;
     }
 }
 
