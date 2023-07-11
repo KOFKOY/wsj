@@ -12,6 +12,7 @@ import org.springframework.web.socket.WebSocketSession;
 
 import javax.annotation.Resource;
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -24,9 +25,8 @@ public class WebSocketController {
     ObjectMapper mapper;
 
     @GetMapping("/list")
-    public String list() throws JsonProcessingException {
-        Map<String, WebSocketSession> clientSessions = socketHandler.getClientSessions();
-        return mapper.writeValueAsString(clientSessions);
+    public Map<String, List<String>> list() throws JsonProcessingException {
+        return socketHandler.getClientSessions();
     }
 
     @GetMapping("/sendMsg/{id}/{msg}")
