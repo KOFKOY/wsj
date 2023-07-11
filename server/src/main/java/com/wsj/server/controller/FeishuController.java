@@ -18,12 +18,12 @@ public class FeishuController {
     private NoticeUtil noticeUtil;
     @PostMapping
     public Map feishu(@RequestBody Map map) {
+        noticeUtil.send(JSONUtil.toJsonStr(map));
         Map result = new HashMap();
         if (map.containsKey("challenge")) {
             result.put("challenge", map.get("challenge"));
             return result;
         }
-        noticeUtil.send(JSONUtil.toJsonStr(map));
         return result;
     }
 }
