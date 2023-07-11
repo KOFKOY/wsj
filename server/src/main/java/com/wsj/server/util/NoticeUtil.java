@@ -15,4 +15,9 @@ public class NoticeUtil {
         }
         return msg;
     }
+
+    @FsNotice
+    public String forceSend(String msg) {
+        return msg;
+    }
 }

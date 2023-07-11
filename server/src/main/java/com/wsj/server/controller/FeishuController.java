@@ -35,7 +35,7 @@ public class FeishuController {
         }
         RebotEvent rebotEvent = mapper.readValue(JSONUtil.toJsonStr(map), RebotEvent.class);
         if("10000".equals(rebotEvent.getEvent().getEvent_key())){
-            noticeUtil.send(JSONUtil.toJsonStr(socketHandler.getClientSessions()));
+            noticeUtil.forceSend(JSONUtil.toJsonStr(socketHandler.getClientSessions()));
         }
         return result;
     }

@@ -27,6 +27,6 @@ public class UtilController {
     @FsNotice
     public String log(){
         Constant.SHOWLOG = !Constant.SHOWLOG;
-        return Constant.SHOWLOG ? "打开" : "关闭" + "日志";
+        return (Constant.SHOWLOG ? "打开" : "关闭") + "日志";
     }
 }
