@@ -33,7 +33,7 @@ public class SocketHandler implements WebSocketHandler {
         // 处理收到的消息
         String receivedMessage = (String) message.getPayload();
         // 在此处添加自定义的消息处理逻辑
-        //noticeUtil.send("收到的消息：" + receivedMessage);
+        noticeUtil.send("收到的消息：" + receivedMessage);
         if (msgList.containsKey(session.getId())) {
             msgList.get(session.getId()).add(receivedMessage);
         }else {
@@ -51,7 +51,7 @@ public class SocketHandler implements WebSocketHandler {
     @Override
     public void afterConnectionClosed(WebSocketSession session, CloseStatus closeStatus) throws Exception {
         sessionMap.remove(session.getId());
-        //noticeUtil.send("客户端断开连接：" + session.getId());
+        noticeUtil.send("客户端断开连接：" + session.getId());
     }
 
     @Override

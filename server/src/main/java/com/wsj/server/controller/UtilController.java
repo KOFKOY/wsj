@@ -1,6 +1,7 @@
 package com.wsj.server.controller;
 
 import com.wsj.notice.message.FsNotice;
+import com.wsj.server.Constant;
 import com.wsj.server.api.BaseApi;
 import com.wsj.server.util.ClashUtil;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,19 +11,22 @@ import javax.annotation.Resource;
 
 @RestController
 @RequestMapping("/api")
-public class ClashController {
+public class UtilController {
     @Resource
     BaseApi clashApi;
 
-
-    //测试2
-
     @GetMapping("/clash")
     @FsNotice
-    public String test() throws Exception {
+    public String clash() throws Exception {
         ClashUtil.updateClashBode();
         ClashUtil.updateNodeFree();
         ClashUtil.updateClashFree();
         return "更新3个订阅文件成功~~~";
+    }
+    @GetMapping("/log")
+    @FsNotice
+    public String log(){
+        Constant.SHOWLOG = !Constant.SHOWLOG;
+        return Constant.SHOWLOG ? "打开" : "关闭" + "日志";
     }
 }
