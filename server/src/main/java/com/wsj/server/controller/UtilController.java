@@ -18,9 +18,9 @@ public class UtilController {
     @GetMapping("/clash")
     @FsNotice
     public String clash() throws Exception {
-        ClashUtil.updateClashBode();
-        ClashUtil.updateNodeFree();
-        ClashUtil.updateClashFree();
+        ClashUtil.githubV2rayToClash();
+//        ClashUtil.updateNodeFree();
+//        ClashUtil.updateClashFree();
         return "更新3个订阅文件成功~~~";
     }
     @GetMapping("/log")

@@ -2,15 +2,10 @@ package com.wsj.server.job;
 
 import com.wsj.notice.message.FsNotice;
 import com.wsj.server.util.ClashUtil;
-import org.springframework.retry.annotation.Recover;
-import org.springframework.retry.annotation.Retryable;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 @EnableAsync
 @Component
@@ -27,22 +22,29 @@ public class ClashJob {
     @Scheduled(cron = "0 1 0/4 * * *")
     @Async
     @FsNotice
-    public String test() throws Exception {
+    public String clash() throws Exception {
         return ClashUtil.updateClashBode();
     }
 
     @Scheduled(cron = "0 1 0/4 * * *")
     @Async
     @FsNotice
-    public String test2() throws Exception {
+    public String clash2() throws Exception {
         return ClashUtil.updateNodeFree();
     }
 
     @Scheduled(cron = "0 1 0/4 * * *")
     @Async
     @FsNotice
-    public String test3() throws Exception {
+    public String clash3() throws Exception {
         return ClashUtil.updateClashFree();
+    }
+
+    @Scheduled(cron = "0 1 0/4 * * *")
+    @Async
+    @FsNotice
+    public String clash4() throws Exception {
+        return ClashUtil.githubV2rayToClash();
     }
 
 
