@@ -19,9 +19,10 @@ public class UtilController {
     @FsNotice
     public String clash() throws Exception {
         ClashUtil.githubV2rayToClash();
-//        ClashUtil.updateNodeFree();
-//        ClashUtil.updateClashFree();
-        return "更新3个订阅文件成功~~~";
+        ClashUtil.updateClashBode();
+        ClashUtil.updateNodeFree();
+        ClashUtil.updateClashFree();
+        return "更新4个订阅文件成功~~~";
     }
     @GetMapping("/log")
     @FsNotice
